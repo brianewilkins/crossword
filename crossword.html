@@ -1,0 +1,22 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+	<title>Crossword Solver</title>
+    </head>
+
+    <body>
+        <form method="POST" action="/crosswordsolver/">
+            {% csrf_token %}
+	    <h1>Crossword Solver</h1>
+	    <h2>Find words that fit in a crossword puzzle</h2>
+            Enter word pattern (with ? in place of each unknown letter): 
+	    <input type="text" size=30 style="font-size:20px;font-family:monospace" name="pattern"/>
+	    <br><br>
+	    <input type="Submit" name="submit_button" value="Find matches"/>
+	    <br><br>{% if invalid_pattern_msg != "" %}<text style="color:red;"><i>{{ invalid_pattern_msg }}</i></text><br><br>{% endif %}
+{% if pattern == "" %} {%elif pattern is None %} {%elif matches == "" %}<i>No words are found that match: </i><b>{{ valid_pattern }}</b>{% else %}<i>Words that match: </i><b>{{ valid_pattern }}</b>{% endif %}<br>
+	    <pre><text id="matches" style="font-size:20px;font-family:monospace">{% if matches != None %}{{ matches }}{% endif %}</text></pre>
+	    <br><br>
+        </form>
+    </body>
+</html>
